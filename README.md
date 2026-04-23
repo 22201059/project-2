@@ -104,4 +104,4 @@ Feel free to open issues or submit pull requests. Describe changes clearly and e
 
 ## License
 
-Add a license of your choice (e.g., MIT) — update this section accordingly.
+No License needed
