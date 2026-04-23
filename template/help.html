@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(120deg, #e3f0ff 0%, #f8f8f8 100%);
+        min-height: 90vh;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .help-bg-illustration {
+        position: fixed;
+        top: -50px; left: 0; right: 0; bottom: -50px;
+        z-index: 0;
+        width: 100vw;
+        height: 100vh;
+        background: url("{% static 'IMG/sub.png' %}") center/cover no-repeat;
+        opacity: 0.45;
+        pointer-events: none;
+    }
+    .help-ticket-card {
+        max-width: 500px;
+        margin: 10px auto 0 auto;
+        background: #2c384a;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(44,56,74,0.18);
+        padding: 18px 24px 14px 24px;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+    .help-ticket-card h1 {
+        font-size: 2.1rem;
+        font-weight: bold;
+        margin-bottom: 12px;
+        color: #fff;
+    }
+    .help-ticket-card .subtitle {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 22px;
+        color: #e3e3e3;
+    }
+    .help-ticket-card ul {
+        text-align: left;
+        margin: 0 auto 12px auto;
+        padding-left: 22px;
+        max-width: 500px;
+        color: #e3e3e3;
+        font-size: 1.08rem;
+    }
+    .help-ticket-card ul li {
+        margin-bottom: 23px;
+        line-height: 1.6;
+        border-radius: 8px;
+        transition: background 0.2s, color 0.2s;
+        padding: 6px 10px;
+    }
+    .help-ticket-card ul li:hover {
+        background: #b2eafc;
+        color: #2c384a;
+        cursor: pointer;
+    }
+    .help-ticket-card .purchase-step {
+        display: block;
+        background: #3a465a;
+        color: #bfc9d6;
+        border-radius: 8px;
+        padding: 12px 18px;
+        margin: 10px 0 10px 0;
+        font-size: 1.05rem;
+        text-align: left;
+        border: none;
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+        pointer-events: none;
+    }
+    .help-ticket-card .final-note {
+        margin-top: 18px;
+        color: #e3e3e3;
+        font-size: 1.08rem;
+    }
+    .help-ticket-card .go-back-btn {
+        margin-top: 26px;
+        background: #b2eafc;
+        color: #2c384a;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 32px;
+        font-size: 1.08rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+        box-shadow: 0 2px 8px rgba(44,56,74,0.08);
+    }
+    .help-ticket-card .go-back-btn:hover {
+        background: #7fd3f7;
+    }
+    @media (max-width: 700px) {
+        .help-ticket-card {
+            padding: 18px 6vw 18px 6vw;
+        }
+        .help-ticket-card h1 {
+            font-size: 1.3rem;
+        }
+    }
+    /* Hide footer only on help.html */
+    footer {
+        display: none !important;
+    }
+</style>
+
+<div class="help-bg-illustration"></div>
+<div class="help-ticket-card">
+    <h1>How to Purchase a Ticket ?</h1>
+    <div class="subtitle"><b>Follow these simple steps to purchase your metro ticket:</b></div>
+    <ul>
+        <li>Visit the <b>“Purchase Ticket”</b> section from the homepage &gt; Services &gt; Purchase Ticket.</li>
+        <li>Select your departure station <b>“From”</b> and destination station <b>“To”</b>.</li>
+        <li>Select the date and time of your travel.</li>
+        <li>Choose the number of tickets you wish to purchase.</li>
+    </ul>
+    <div class="purchase-step">
+        &#9679; Click on the <b>“Purchase”</b> button to proceed to payment.
+    </div>
+    <div class="final-note">
+        Once you’ve made your payment, your ticket will be confirmed and your journey is set!
+    </div>
+    <button class="go-back-btn" onclick="window.history.back();">Go Back</button>
+</div>
+{% endblock content %}

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    .ticket-details-container {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(233,30,99,0.08);
+        padding: 32px 28px;
+        max-width: 400px;
+        width: 100%;
+        margin: 40px auto;
+    }
+    .ticket-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color:rgb(15, 7, 10);
+        margin-bottom: 12px;
+    }
+    .ticket-desc {
+        color: #555;
+        font-size: 1.1rem;
+        margin-bottom: 18px;
+    }
+    .ticket-price {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 24px;
+    }
+    .ticket-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+    .ticket-actions a {
+        min-width: 90px;
+    }
+    .search-bar {
+        margin-bottom: 24px;
+    }
+    /* Ensure main takes enough space for sticky footer */
+    main {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* --- Button Styles --- */
+    .btn {
+        display: inline-block;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 10px 26px;
+        border-radius: 8px;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+        outline: none;
+    }
+    .btn-primary {
+        background: #1976d2;
+        color: #fff;
+    }
+    .btn-primary:hover, .btn-primary:focus {
+        background: #1565c0;
+        color: #fff;
+    }
+    .btn-success {
+        background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+        color: #fff;
+    }
+    .btn-success:hover, .btn-success:focus {
+        background: linear-gradient(90deg, #11998e 0%, #38f9d7 100%);
+        color: #fff;
+    }
+    .btn-danger {
+        background: linear-gradient(90deg, #e53935 0%, #e35d5b 100%);
+        color: #fff;
+    }
+    .btn-danger:hover, .btn-danger:focus {
+        background: linear-gradient(90deg, #b71c1c 0%, #e53935 100%);
+        color: #fff;
+    }
+    .btn-warning {
+        background: #ffb300;
+        color: #232323;
+    }
+    .btn-warning:hover, .btn-warning:focus {
+        background: #ffa000;
+        color: #fff;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="ticket-details-container">
+    <form method="get" action="{% url 'all_tickets' %}" class="search-bar">
+    </form>
+    <div>
+        {% if ticket.image %}
+            <div style="text-align:center;margin-bottom:18px;">
+                <img src="{{ ticket.image.url }}" alt="{{ ticket.ticket_name }}" style="max-width:100%;max-height:220px;border-radius:12px;box-shadow:0 2px 12px rgba(233,30,99,0.08);">
+            </div>
+        {% endif %}
+        <div class="ticket-title">{{ ticket.ticket_name }}</div>
+        <div class="ticket-desc">{{ ticket.description }}</div>
+        <div class="ticket-price">Price: taka{{ ticket.price }}</div>
+        <div class="ticket-actions">
+            {% if user.is_authenticated and user.user_type == "passenger" %}
+                <a href="{% url 'all_tickets' %}" class="btn btn-primary">Back</a>
+                <a href="{% url 'purchase_ticket' ticket.id %}" class="btn btn-success">Buy</a>
+            {% else %}
+                <a href="{% url 'delete' ticket.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'all_tickets' %}" class="btn btn-primary">Back</a>
+                <a href="{% url 'update_ticket' ticket.id %}" class="btn btn-warning">Update</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

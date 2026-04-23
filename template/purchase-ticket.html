@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+        min-height: 100vh;
+    }
+    .purchase-container {
+        max-width: 480px;
+        margin: 80px auto;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(30, 136, 229, 0.13);
+        padding: 38px 32px 32px 32px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        animation: popIn 0.6s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @keyframes popIn {
+        0% { transform: scale(0.8); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    .purchase-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1e88e5;
+        margin-bottom: 18px;
+    }
+    .purchase-card {
+        background: #f8fafc;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(30,136,229,0.07);
+        padding: 28px 18px 18px 18px;
+        margin-bottom: 18px;
+    }
+    .purchase-card h4 {
+        color: #e53935;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .purchase-card p {
+        color: #444;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    .purchase-price {
+        font-size: 1.2rem;
+        color: #1976d2;
+        font-weight: 500;
+        margin-bottom: 18px;
+    }
+    .purchase-actions {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 10px;
+    }
+    .btn-cancel {
+        background: #e3f2fd;
+        color: #1976d2;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 28px;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: background 0.2s, color 0.2s;
+        box-shadow: 0 2px 8px rgba(30,136,229,0.07);
+        text-decoration: none;
+        outline: none;
+    }
+    .btn-cancel:hover {
+        background: #bbdefb;
+        color: #0d47a1;
+    }
+    .btn-confirm {
+        background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 28px;
+        font-size: 1rem;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(67,233,123,0.11);
+        transition: background 0.2s;
+        outline: none;
+    }
+    .btn-confirm:hover {
+        background: linear-gradient(90deg, #11998e 0%, #38f9d7 100%);
+        color: #fff;
+    }
+</style>
+<div class="purchase-container">
+    <div class="purchase-title">Purchase Ticket</div>
+    <div class="purchase-card">
+        <h4>{{ ticket.ticket_name }}</h4>
+        <p>{{ ticket.description }}</p>
+        <div class="purchase-price">Price: taka{{ ticket.price }}</div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="purchase-actions">
+                <a href="{% url 'home' %}" class="btn-confirm">Confirm Purchase</a>
+                <a href="{% url 'ticket_details' ticket.id %}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

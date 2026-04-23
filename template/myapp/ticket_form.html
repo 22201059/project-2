@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(120deg, #fff6fa 0%, #f8f8f8 100%);
+        min-height: 100vh;
+    }
+    .ticket-form-container {
+        max-width: 520px;
+        margin: 48px auto;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 6px 32px rgba(233,30,99,0.10);
+        padding: 36px 32px 28px 32px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .ticket-form-container h2 {
+        color:rgb(0, 0, 0);
+        font-weight: bold;
+        margin-bottom: 24px;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+    .ticket-form-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+    .ticket-form-container label {
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 6px;
+    }
+    .ticket-form-container input[type="text"],
+    .ticket-form-container input[type="number"],
+    .ticket-form-container input[type="file"],
+    .ticket-form-container textarea {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 1rem;
+        background: #fafafa;
+        transition: border 0.2s;
+    }
+    .ticket-form-container input[type="text"]:focus,
+    .ticket-form-container input[type="number"]:focus,
+    .ticket-form-container textarea:focus {
+        border: 1.5px solidrgb(0, 0, 0);
+        outline: none;
+        background: #fff;
+    }
+    .ticket-form-container input[type="submit"] {
+        background:rgb(64, 26, 189);
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        padding: 12px 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+        box-shadow: 0 2px 8px rgba(233,30,99,0.08);
+    }
+    .ticket-form-container input[type="submit"]:hover {
+        background: #ad1457;
+    }
+</style>
+<div class="ticket-form-container">
+    <h2>Add / Update ticket</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="Submit" value="Save ticket">
+    </form>
+</div>
+{% endblock %}

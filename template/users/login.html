@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    .metro-hero-bg {
+        position: relative;
+        width: 100vw;
+        min-height: 580px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-top: -60px; /* adjust if needed to overlap nav */
+    }
+    .metro-hero-bg img {
+        width: 100vw;
+        max-width: 100%;
+        min-height: 420px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+        filter: none;
+        z-index: 1;
+    }
+    .metro-hero-title {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: #232323;
+        font-size: 4vw;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-weight: 500;
+        text-align: center;
+        z-index: 2;
+        white-space: nowrap;
+        text-shadow: 0 2px 8px rgba(255,255,255,0.7);
+        animation: metroTitlePop 1.2s cubic-bezier(.68,-0.55,.27,1.55), metroTitleGlow 2.5s infinite alternate;
+    }
+    @keyframes metroTitlePop {
+        0% { opacity: 0; transform: translate(-50%, -60%) scale(0.8);}
+        60% { opacity: 1; transform: translate(-50%, -52%) scale(1.05);}
+        100% { opacity: 1; transform: translate(-50%, -50%) scale(1);}
+    }
+    @keyframes metroTitleGlow {
+        0% { text-shadow: 0 2px 8px rgba(255,255,255,0.7), 0 0 0 #ff9800; }
+        100% { text-shadow: 0 2px 16px #ff9800, 0 0 12px #ff9800; }
+    }
+    .register-btn {
+        position: absolute;
+        left: 50%;
+        top: 65%;
+        transform: translate(-50%, 0);
+        z-index: 3;
+        padding: 14px 38px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        background: linear-gradient(90deg, #232f3e 0%, #3a4a5d 100%);
+        color: #fff;
+        border: none;
+        border-radius: 28px;
+        box-shadow: 0 4px 16px rgba(255,152,0,0.13);
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+        text-decoration: none;
+        letter-spacing: 1px;
+    }
+    .register-btn:hover, .register-btn:focus {
+        background: linear-gradient(90deg,rgb(76, 70, 155) 0%,rgb(71, 187, 255) 100%);
+        box-shadow: 0 8px 24px rgba(255,152,0,0.18);
+        transform: translate(-50%, -4px) scale(1.04);
+        color: #fff;
+        text-decoration: none;
+    }
+    @media (max-width: 900px) {
+        .metro-hero-title {
+            font-size: 6vw;
+        }
+        .metro-hero-bg {
+            min-height: 260px;
+        }
+        .metro-hero-bg img {
+            min-height: 260px;
+        }
+        .register-btn {
+            font-size: 1rem;
+            padding: 12px 28px;
+            top: 70%;
+        }
+    }
+    @media (max-width: 600px) {
+        .metro-hero-title {
+            font-size: 8vw;
+        }
+        .metro-hero-bg {
+            min-height: 180px;
+        }
+        .metro-hero-bg img {
+            min-height: 180px;
+        }
+        .register-btn {
+            font-size: 0.95rem;
+            padding: 10px 18px;
+            top: 75%;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="metro-hero-bg">
+    <img src="{% static 'IMG/sub.png' %}" alt="Metro Subway">
+</div>
+<div class="login-card" style="max-width: 420px; margin: -600px auto 90px auto; background: #2c384a; border-radius: 12px; box-shadow: 0 4px 16px rgba(44,56,74,0.18); padding: 154px 58px 58px 58px; color: #fff; text-align: center; z-index: 2; position: relative;">
+    <h2 style="color: #fff; margin-bottom: 12px; font-size: 1.3rem; font-weight: bold;">Log In</h2>
+    {% if messages %}
+        <div class="messages" style="margin-bottom: 16px; color: #ffb3c6; font-weight: bold;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group" style="text-align: left; margin-bottom: 10px;">
+            <label for="email" style="display: block; font-weight: 500; margin-bottom: 3px; color: #bfc9d6; font-size: 0.95rem;">Email:</label>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 8px 10px; border: none; border-radius: 4px; font-size: 1rem; outline: none; margin-bottom: 7px; background: #fff; color: #232323; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="text-align: left; margin-bottom: 10px;">
+            <label for="password" style="display: block; font-weight: 500; margin-bottom: 3px; color: #bfc9d6; font-size: 0.95rem;">Password:</label>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 8px 10px; border: none; border-radius: 4px; font-size: 1rem; outline: none; margin-bottom: 7px; background: #fff; color: #232323; box-sizing: border-box;">
+        </div>
+        <button type="submit" class="login-btn" style="width: 100%; background: #b2eafc; color: #2c384a; border: none; border-radius: 8px; padding: 12px 0; font-size: 1.1rem; font-weight: bold; margin-top: 10px; cursor: pointer; transition: background 0.2s; margin-bottom: 10px;">Log In</button>
+    </form>
+    <div class="signup-link" style="margin-top: 10px;">
+        Don't have an account? <a href="{% url 'signup' %}" style="color: #b2eafc;">Sign Up</a>
+    </div>
+</div>
+
+{% endblock content %}

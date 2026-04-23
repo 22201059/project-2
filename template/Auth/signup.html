@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    .metro-hero-bg {
+        width: 100vw;
+        min-height: 400px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-bottom: 24px;
+    }
+    .metro-hero-bg img {
+        width: 100vw;
+        max-width: 100%;
+        min-height: 220px;
+        object-fit: cover;
+        display: block;
+        margin: -30px auto;
+        filter: none;
+        z-index: 1;
+    }
+    .signup-card {
+        max-width: 320px;
+        margin: -620px auto 0 auto;
+        background: #2c384a;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(44,56,74,0.18);
+        padding: 24px 18px 18px 18px;
+        color: #fff;
+        text-align: center;
+        z-index: 2;
+        position: relative;
+    }
+    .signup-card h2 {
+        color: #fff;
+        margin-bottom: 12px;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    .form-group {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+    .form-group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 3px;
+        color: #bfc9d6;
+        font-size: 0.95rem;
+    }
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 8px 10px;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        outline: none;
+        margin-bottom: 7px;
+        background: #fff;
+        color: #232323;
+        box-sizing: border-box;
+    }
+    .form-group input:focus, .form-group select:focus {
+        border: 1px solid #00bcd4;
+    }
+    .signup-btn, .back-btn {
+        width: 100%;
+        background: #b2eafc;
+        color: #2c384a;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-bottom: 10px;
+    }
+    .signup-btn:hover, .back-btn:hover {
+        background: #7fd3f7;
+    }
+    .back-btn {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .messages {
+        margin-bottom: 16px;
+        color: #ffb3c6;
+        font-weight: bold;
+    }
+    @media (max-width: 600px) {
+        .signup-card {
+            padding: 18px 6vw 18px 6vw;
+        }
+        .signup-card h2 {
+            font-size: 1.1rem;
+        }
+        .metro-hero-bg img {
+            min-height: 120px;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="metro-hero-bg">
+    <img src="{% static 'IMG/sub.png' %}" alt="Metro Subway">
+</div>
+<div class="signup-card">
+    <h2>Register</h2>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="user_type">User Type:</label>
+            <select id="user_type" name="user_type" required>
+                <option value="passenger">Passenger</option>
+                <option value="seller">Seller</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="profile_pic">Profile Picture:</label>
+            <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
+        </div>
+        <button type="submit" class="signup-btn">Create Account</button>
+    </form>
+    <form method="get" action="{% url 'login' %}">
+        <button type="submit" class="back-btn">Back</button>
+    </form>
+</div>
+{% endblock content %}
